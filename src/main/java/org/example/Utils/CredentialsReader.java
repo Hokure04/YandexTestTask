@@ -1,18 +1,15 @@
 package org.example.Utils;
 
-import org.example.TestData.UserData;
-
-import java.io.IOException;
+import org.example.Models.UserData;
 
 public class CredentialsReader {
 
-    public static  final String pathToUserData = "credentials.json";
+    public static  final String PATH_TO_USER_DATA = "credentials.json";
     private static UserData userData;
 
-    public static UserData getUserData() throws IOException {
+    public static UserData getUserData() {
         if(userData == null){
-            String userDataFilePath = PathManager.getPath(pathToUserData);
-            userData = Parser.parse(userDataFilePath, UserData.class);
+           userData = Parser.parse(PathManager.getPath(PATH_TO_USER_DATA), UserData.class);
         }
         return userData;
     }

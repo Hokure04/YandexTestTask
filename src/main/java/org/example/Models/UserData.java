@@ -1,9 +1,16 @@
-package org.example.TestData;
+package org.example.Models;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserData {
-    public String login;
-    public String password;
-    public String token;
+    @JsonProperty("login")
+    private String login;
+
+    @JsonProperty("password")
+    private String password;
+
+    @JsonProperty("token")
+    private String token;
 
     public void setLogin(String login){
         this.login = login;

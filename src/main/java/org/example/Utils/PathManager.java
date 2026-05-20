@@ -3,13 +3,11 @@ package org.example.Utils;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class PathManager {
+public final class PathManager {
 
-    private static final String folder = "src/main/resources";
+    private static final String RESOURCE_DIR = "src/main/resources";
 
-    public static String getPath(String filename){
-        String baseDir = System.getProperty("user.dir");
-        Path path = Paths.get(baseDir, folder, filename);
-        return path.toAbsolutePath().normalize().toString();
+    public static Path getPath(String filename){
+        return Path.of(RESOURCE_DIR, filename).toAbsolutePath();
     }
 }

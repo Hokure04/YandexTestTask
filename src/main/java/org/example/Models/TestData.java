@@ -1,0 +1,61 @@
+package org.example.Models;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class TestData {
+
+    @JsonProperty("newFileTxt")
+    private String newFileTxt;
+
+    @JsonProperty("newFileJpg")
+    private String newFileJpg;
+
+    @JsonProperty("defaultFilename")
+    private String defaultFilename;
+
+    @JsonProperty("extension")
+    private String extension;
+
+    @JsonProperty("defaultPath")
+    private String defaultPath;
+
+    public String getDefaultPath() {
+        return defaultPath;
+    }
+
+    public void setDefaultPath(String defaultPath) {
+        this.defaultPath = defaultPath;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public String getDefaultFilename() {
+        return defaultFilename;
+    }
+
+    public void setDefaultFilename(String defaultFilename) {
+        this.defaultFilename = defaultFilename;
+    }
+
+    public String getNewFileJpg() {
+        return newFileJpg;
+    }
+
+    public void setNewFileJpg(String newFileJpg) {
+        this.newFileJpg = newFileJpg;
+    }
+
+    public String getNewFileTxt() {
+        return newFileTxt;
+    }
+
+    public void setNewFileTxt(String newFileTxt) {
+        this.newFileTxt = newFileTxt;
+    }
+}

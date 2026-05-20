@@ -1,0 +1,128 @@
+package org.example.Utils;
+
+import io.restassured.response.Response;
+import org.example.Models.LinkResource;
+import org.example.Models.TrashResource;
+
+public class YandexDiskApiClient extends BaseApi{
+
+    public static final String TEXT_PLAN = "text/plan";
+    public static final String IMAGE_JPEG = "image/jpeg";
+
+    private final String token;
+
+    public YandexDiskApiClient(){
+        super(SettingsReader.getSettings().getApiUrl());
+        this.token = CredentialsReader.getUserData().getToken();
+    }
+
+    private String authHeader(){
+        return "OAuth "+ token;
+    }
+
+    public Response getUploadResourceResponse(String path){
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("path", path)
+                .queryParam("overwrite", true)
+                .get("/v1/disk/resources/upload");
+    }
+
+    public LinkResource getUploadResource(String path){
+        return getUploadResourceResponse(path)
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(LinkResource.class);
+    }
+
+    public Response uploadTextFile(String path, String content){
+        LinkResource uploadResource = getUploadResource(path);
+
+        return request()
+                .contentType(TEXT_PLAN)
+                .body(content)
+                .put(uploadResource.getHref());
+    }
+
+    public Response UploadImageFile(String path, byte[] imageBytes){
+        LinkResource uploadResource = getUploadResource(path);
+
+        return request()
+                .contentType(IMAGE_JPEG)
+                .body(imageBytes)
+                .put(uploadResource.getHref());
+    }
+
+    public Response changeExtensions(String path, String extension){
+        int index = path.lastIndexOf('.');
+
+        if(index < 0){
+            throw new IllegalArgumentException("Расширения файла не обнаружено "+path );
+        }
+
+        String newFileName = path.substring(0, index) + extension;
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("from", path)
+                .queryParam("path", newFileName)
+                .queryParam("overwrite", true)
+                .post("/v1/disk/resources/move");
+    }
+
+    public LinkResource getDownloadResource(String path){
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("path", path)
+                .get("/v1/disk/resources/download")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(LinkResource.class);
+    }
+
+    public byte[] downloadFileBytes(String path){
+        LinkResource downloadResource = getDownloadResource(path);
+
+        return request()
+                .get(downloadResource.getHref())
+                .then()
+                .statusCode(200)
+                .extract()
+                .asByteArray();
+    }
+
+    public TrashResource getTrashFiles(String path) {
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("path", path)
+                .get("/v1/disk/trash/resources")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(TrashResource.class);
+    }
+
+    public Response restoreFile(String trashPath) {
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("path", trashPath)
+                .put("/v1/disk/trash/resources/restore");
+    }
+
+    public Response deleteFile(String path) {
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("path", path)
+                .queryParam("permanently", true)
+                .delete("/v1/disk/resources");
+    }
+
+    public Response moveFileToTrash(String path) {
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("path", path)
+                .queryParam("permanently", false)
+                .delete("/v1/disk/resources");
+    }
+}
