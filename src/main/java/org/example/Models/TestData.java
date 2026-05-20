@@ -4,6 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TestData {
 
+    @JsonProperty("apiTestFolder")
+    private String apiTestFolder;
+
+    @JsonProperty("apiTestFile")
+    private String apiTestFileName;
+
+    @JsonProperty("apiRenamedFile")
+    private String apiRenamedFile;
+
     @JsonProperty("newFileTxt")
     private String newFileTxt;
 
@@ -18,6 +27,17 @@ public class TestData {
 
     @JsonProperty("defaultPath")
     private String defaultPath;
+
+    @JsonProperty("apiCopyFile")
+    private String apiCopyFile;
+
+    public String getApiCopyFile() {
+        return apiCopyFile;
+    }
+
+    public void setApiCopyFile(String apiCopyFile) {
+        this.apiCopyFile = apiCopyFile;
+    }
 
     public String getDefaultPath() {
         return defaultPath;
@@ -49,6 +69,30 @@ public class TestData {
 
     public void setNewFileJpg(String newFileJpg) {
         this.newFileJpg = newFileJpg;
+    }
+
+    public String getApiTestFolder() {
+        return apiTestFolder;
+    }
+
+    public void setApiTestFolder(String apiTestFolder) {
+        this.apiTestFolder = apiTestFolder;
+    }
+
+    public String getApiTestFileName() {
+        return apiTestFileName;
+    }
+
+    public void setApiTestFileName(String apiTestFileName) {
+        this.apiTestFileName = apiTestFileName;
+    }
+
+    public String getApiTestRenamedFileName() {
+        return apiRenamedFile;
+    }
+
+    public void setApiTestRenamedFileName(String apiTestRenamedFileName) {
+        this.apiRenamedFile = apiTestRenamedFileName;
     }
 
     public String getNewFileTxt() {

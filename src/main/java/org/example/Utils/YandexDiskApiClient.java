@@ -4,9 +4,11 @@ import io.restassured.response.Response;
 import org.example.Models.LinkResource;
 import org.example.Models.TrashResource;
 
+import static io.restassured.RestAssured.given;
+
 public class YandexDiskApiClient extends BaseApi{
 
-    public static final String TEXT_PLAN = "text/plan";
+    public static final String TEXT_PLAIN = "text/plain";
     public static final String IMAGE_JPEG = "image/jpeg";
 
     private final String token;
@@ -18,6 +20,26 @@ public class YandexDiskApiClient extends BaseApi{
 
     private String authHeader(){
         return "OAuth "+ token;
+    }
+
+    public Response getDiskInfo() {
+        return request()
+                .header("Authorization", authHeader())
+                .get("/v1/disk");
+    }
+
+    public Response getResource(String path) {
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("path", path)
+                .get("/v1/disk/resources");
+    }
+
+    public Response createFolder(String path) {
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("path", path)
+                .put("/v1/disk/resources");
     }
 
     public Response getUploadResourceResponse(String path){
@@ -38,16 +60,14 @@ public class YandexDiskApiClient extends BaseApi{
 
     public Response uploadTextFile(String path, String content){
         LinkResource uploadResource = getUploadResource(path);
-
         return request()
-                .contentType(TEXT_PLAN)
+                .contentType(TEXT_PLAIN)
                 .body(content)
                 .put(uploadResource.getHref());
     }
 
-    public Response UploadImageFile(String path, byte[] imageBytes){
+    public Response uploadImageFile(String path, byte[] imageBytes){
         LinkResource uploadResource = getUploadResource(path);
-
         return request()
                 .contentType(IMAGE_JPEG)
                 .body(imageBytes)
@@ -81,11 +101,39 @@ public class YandexDiskApiClient extends BaseApi{
                 .as(LinkResource.class);
     }
 
-    public byte[] downloadFileBytes(String path){
+    public Response moveResource(String from, String to) {
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("from", from)
+                .queryParam("path", to)
+                .queryParam("overwrite", true)
+                .post("/v1/disk/resources/move");
+    }
+
+    public Response copyResource(String from, String to) {
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("from", from)
+                .queryParam("path", to)
+                .queryParam("overwrite", true)
+                .post("/v1/disk/resources/copy");
+    }
+
+
+    public byte[] downloadFileBytes(String path) {
         LinkResource downloadResource = getDownloadResource(path);
 
-        return request()
-                .get(downloadResource.getHref())
+        Response response = given()
+                .urlEncodingEnabled(false)
+                .redirects()
+                .follow(true)
+                .get(downloadResource.getHref());
+
+        /*System.out.println("Download path: " + path);
+        System.out.println("Download href: " + downloadResource.getHref());
+        System.out.println("Download status: " + response.statusCode());*/
+
+        return response
                 .then()
                 .statusCode(200)
                 .extract()
@@ -125,4 +173,6 @@ public class YandexDiskApiClient extends BaseApi{
                 .queryParam("permanently", false)
                 .delete("/v1/disk/resources");
     }
+
+
 }

@@ -1,0 +1,11 @@
+{
+  "apiTestFolder": "api_test_%s",
+  "apiTestFile": "test_file.txt",
+  "apiRenamedFile": "renamed_test_file.txt",
+  "newFileTxt": "disk:/new_file.txt",
+  "newFileJpg": "new_file.jpg",
+  "defaultFilename": "new_file",
+  "extension": ".jpg",
+  "defaultPath": "/",
+  "apiCopyFile": "disk:/copy_test_file.txt"
+}

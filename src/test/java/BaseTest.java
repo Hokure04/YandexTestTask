@@ -11,11 +11,17 @@ import static com.codeborne.selenide.Selenide.open;
 public abstract class BaseTest {
     protected YandexDiskApiClient yandexDiskApiClient;
 
+    protected boolean isUiTest(){
+        return false;
+    }
+
     @BeforeEach
     public void setUp(){
-        BrowserConfig.configure();
         yandexDiskApiClient = new YandexDiskApiClient();
-        open(SettingsReader.getSettings().getAppUrl());
+        if(isUiTest()){
+            BrowserConfig.configure();
+            open(SettingsReader.getSettings().getAppUrl());
+        }
     }
 
     @AfterEach

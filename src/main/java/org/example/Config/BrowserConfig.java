@@ -11,7 +11,7 @@ public class BrowserConfig {
     public static void configure(){
         String browser = SettingsReader.getSettings().getBrowser();
         Configuration.browser = browser;
-        Configuration.browserSize = "";
+        Configuration.browserSize = "1920x1080";
         Configuration.timeout = SettingsReader.getSettings().getTimeout();
 
         switch(browser.toLowerCase()){
