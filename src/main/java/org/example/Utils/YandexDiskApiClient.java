@@ -129,10 +129,6 @@ public class YandexDiskApiClient extends BaseApi{
                 .follow(true)
                 .get(downloadResource.getHref());
 
-        /*System.out.println("Download path: " + path);
-        System.out.println("Download href: " + downloadResource.getHref());
-        System.out.println("Download status: " + response.statusCode());*/
-
         return response
                 .then()
                 .statusCode(200)
@@ -172,6 +168,13 @@ public class YandexDiskApiClient extends BaseApi{
                 .queryParam("path", path)
                 .queryParam("permanently", false)
                 .delete("/v1/disk/resources");
+    }
+
+    public Response deleteFileFromTrash(String trashPath) {
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("path", trashPath)
+                .delete("/v1/disk/trash/resources");
     }
 
 

@@ -6,6 +6,6 @@
   "newFileJpg": "new_file.jpg",
   "defaultFilename": "new_file",
   "extension": ".jpg",
-  "defaultPath": "/",
+  "defaultPath": "trash:/",
   "apiCopyFile": "disk:/copy_test_file.txt"
 }
