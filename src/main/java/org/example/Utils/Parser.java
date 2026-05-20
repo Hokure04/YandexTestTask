@@ -19,6 +19,6 @@ public class Parser {
         }
 
         String data = Files.readString(pathObj);
-        return mapper.rea
+        return mapper.readValue(data, tClass);
     }
 }
