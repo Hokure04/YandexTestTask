@@ -1,16 +1,29 @@
 package org.example.Pages;
 
-import org.example.Elements.BaseElement;
-import org.openqa.selenium.By;
+import com.codeborne.selenide.SelenideElement;
+
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.visible;
 
 public abstract class BasePage {
-    private final BaseElement baseElement;
+    private final SelenideElement pageLocator;
+    private final String pageName;
 
-    public BasePage(By locator){
-        this.baseElement = new PageWraper(locator);
+    protected BasePage(SelenideElement pageLocator, String pageName){
+        this.pageLocator = pageLocator;
+        this.pageName = pageName;
     }
 
-    public boolean isPageOpen(){
-        
+    public void waitForaPageOpened(){
+        pageLocator.shouldBe(visible, Duration.ofSeconds(20));
+    }
+
+    public boolean isPageOpened(){
+        return pageLocator.isDisplayed();
+    }
+
+    public String getPageName(){
+        return pageName;
     }
 }

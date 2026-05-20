@@ -1,17 +1,20 @@
 package org.example.Pages;
 
-import org.example.Elements.Button;
-import org.openqa.selenium.By;
+import com.codeborne.selenide.SelenideElement;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage extends BasePage {
 
-    private final Button headerLoginButton = new Button(By.xpath("//*[@id = 'header-login-button']"));
+    private final SelenideElement headerLoginButton = $("#header-login-button");
 
     public HomePage(){
-        super(By.xpath("//*[@data-test='hero']"));
+        super($x("//*[@data-test='hero']"), "Home page");
     }
 
     public void clickLoginButton(){
-        headerLoginButton.click();
+        headerLoginButton.shouldBe(visible).click();
     }
 }
