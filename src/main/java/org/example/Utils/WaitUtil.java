@@ -1,6 +1,5 @@
 package org.example.Utils;
 
-import org.example.Driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;

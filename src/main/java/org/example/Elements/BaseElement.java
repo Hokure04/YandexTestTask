@@ -1,6 +1,5 @@
 package org.example.Elements;
 
-import org.example.Driver.DriverManager;
 import org.example.Utils.WaitUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
