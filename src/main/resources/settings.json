@@ -2,5 +2,5 @@
   "appUrl": "https://disk.yandex.ru/",
   "apiUrl": "https://cloud-api.yandex.net",
   "browser": "chrome",
-  "timeout": 20
+  "timeout": 30
 }

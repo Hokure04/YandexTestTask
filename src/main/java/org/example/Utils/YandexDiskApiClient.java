@@ -176,4 +176,11 @@ public class YandexDiskApiClient extends BaseApi{
                 .queryParam("path", trashPath)
                 .delete("/v1/disk/trash/resources");
     }
+
+    public Response getOperationStatus(String operationId) {
+        return request()
+                .header("Authorization", authHeader())
+                .pathParam("operation_id", operationId)
+                .get("/v1/disk/operations/{operation_id}");
+    }
 }
