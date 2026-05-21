@@ -53,7 +53,7 @@ public class DiskFileApiTest extends BaseTest {
         System.out.println("Проверяем файл по новому имени");
         Response getRenamedFileResponse = yandexDiskApiClient.getResource(renamedFilePath);
         assertEquals(200, getRenamedFileResponse.statusCode(), "Переименованный файл не найден");
-        assertEquals(testData.getApiTestRenamedFileName(), getRenamedFileResponse.jsonPath().getString("name"), "Имя переименованного файла не сопадает с ожидаемым");
+        assertEquals(testData.getApiTestRenamedFileName(), getRenamedFileResponse.jsonPath().getString("name"), "Имя файла не сопадает с ожидаемым");
 
 
         System.out.println("Удаляем папку со всем содержимым");
@@ -140,7 +140,7 @@ public class DiskFileApiTest extends BaseTest {
         System.out.println("Проверяем, что исходный файл создан");
         Response getSourceFileResponse = yandexDiskApiClient.getResource(sourceFilePath);
         assertEquals(200, getSourceFileResponse.statusCode(), "Исходный файл не найден");
-        assertEquals("file", getSourceFileResponse.jsonPath().getString("type"), "Исходный ресурс не является файлом");
+        assertEquals("file", getSourceFileResponse.jsonPath().getString("type"), "Ресурс не является файлом");
 
 
         System.out.println("Копируем файл");
@@ -151,7 +151,7 @@ public class DiskFileApiTest extends BaseTest {
         System.out.println("Проверяем, что скопированный файл создан");
         Response getCopiedFileResponse = yandexDiskApiClient.getResource(copiedFilePath);
         assertEquals(200, getCopiedFileResponse.statusCode(), "Скопированный файл не найден");
-        assertEquals("file", getCopiedFileResponse.jsonPath().getString("type"), "Скопированный ресурс не является файлом");
+        assertEquals("file", getCopiedFileResponse.jsonPath().getString("type"), "Ресурс не является файлом");
 
 
         System.out.println("Проверяем, что размер исходного и скопированного файла совпадает");
@@ -160,10 +160,8 @@ public class DiskFileApiTest extends BaseTest {
         assertEquals(sourceFileSize, copiedFileSize, "Размер исходного и скопированного файла отличается");
 
 
-        System.out.println("Скачиваем исходный файл");
+        System.out.println("Скачиваем исходный и скопированный файлы");
         byte[] sourceFileBytes = yandexDiskApiClient.downloadFileBytes(sourceFilePath);
-
-        System.out.println("Скачиваем скопированный файл");
         byte[] copiedFileBytes = yandexDiskApiClient.downloadFileBytes(copiedFilePath);
 
 

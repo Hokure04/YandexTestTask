@@ -7,5 +7,7 @@
   "defaultFilename": "new_file",
   "extension": ".jpg",
   "defaultPath": "trash:/",
-  "apiCopyFile": "disk:/copy_test_file.txt"
+  "apiCopyFile": "disk:/copy_test_file.txt",
+  "apiImageFile": "disk:/test_image.jpeg",
+  "localImageFile": "images/test_image.jpeg"
 }

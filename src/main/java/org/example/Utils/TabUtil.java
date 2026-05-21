@@ -10,9 +10,6 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public final class TabUtil {
 
-    private TabUtil() {
-    }
-
     public static String switchToLastTab() {
         String originalTab = getWebDriver().getWindowHandle();
 

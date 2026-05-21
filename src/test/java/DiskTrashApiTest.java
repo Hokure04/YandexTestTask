@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DiskTrashApiTest extends BaseTest{
 
     @Test
-    public void moveFileToTrashANdRestoreTest() {
+    public void moveFileToTrashAndRestoreTest() {
         TestData testData = TestDataReader.getTestData();
         String filePath = testData.getNewFileTxt();
 

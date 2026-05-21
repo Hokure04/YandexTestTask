@@ -1,5 +1,4 @@
 import org.example.Config.BrowserConfig;
-import org.example.Models.Settings;
 import org.example.Utils.SettingsReader;
 import org.example.Utils.YandexDiskApiClient;
 import org.junit.jupiter.api.AfterEach;

@@ -1,6 +1,7 @@
 package org.example.Utils;
 
 import io.restassured.response.Response;
+import org.example.Models.Settings;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
@@ -8,7 +9,7 @@ import java.util.function.Supplier;
 
 public class WaitUtil {
 
-    private static final Duration TIMEOUT = Duration.ofSeconds(10);
+    private static final Duration TIMEOUT = Duration.ofSeconds(SettingsReader.getSettings().getTimeout());
     private static final Duration POLLING = Duration.ofSeconds(1);
 
     public static boolean waitForRename(Supplier<String> getNameFunc, String newExtension) {

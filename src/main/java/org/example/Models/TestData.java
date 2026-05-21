@@ -31,6 +31,36 @@ public class TestData {
     @JsonProperty("apiCopyFile")
     private String apiCopyFile;
 
+    @JsonProperty("apiImageFile")
+    private String apiImageFile;
+
+    @JsonProperty("localImageFile")
+    private String localImageFile;
+
+    public String getApiRenamedFile() {
+        return apiRenamedFile;
+    }
+
+    public void setApiRenamedFile(String apiRenamedFile) {
+        this.apiRenamedFile = apiRenamedFile;
+    }
+
+    public String getApiImageFile() {
+        return apiImageFile;
+    }
+
+    public void setApiImageFile(String apiImageFile) {
+        this.apiImageFile = apiImageFile;
+    }
+
+    public String getLocalImageFile() {
+        return localImageFile;
+    }
+
+    public void setLocalImageFile(String localImageFile) {
+        this.localImageFile = localImageFile;
+    }
+
     public String getApiCopyFile() {
         return apiCopyFile;
     }

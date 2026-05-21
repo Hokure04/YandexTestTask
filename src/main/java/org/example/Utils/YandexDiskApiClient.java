@@ -176,6 +176,4 @@ public class YandexDiskApiClient extends BaseApi{
                 .queryParam("path", trashPath)
                 .delete("/v1/disk/trash/resources");
     }
-
-
 }
