@@ -1,7 +1,7 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import org.example.Models.TestData;
+import org.example.Models.TestData.TestData;
 import org.example.Utils.RandomUtil;
 import org.example.Utils.TestDataReader;
 import org.example.Utils.TextGeneratorUtil;
@@ -21,8 +21,8 @@ public class DiskAsyncOperationApiTest extends BaseTest{
         int min = 1000;
         int max = 10000;
 
-        String folderPath = String.format(testData.getApiTestFolder(), RandomUtil.getRandomNumberAsString(min, max));
-        String filePath = folderPath + "/" + testData.getApiTestFileName();
+        String folderPath = String.format(testData.getFileApi().getTestFolder(), RandomUtil.getRandomNumberAsString(min, max));
+        String filePath = folderPath + "/" + testData.getFileApi().getFileName();
         String expectedText = TextGeneratorUtil.generateText(20);
 
         step("Создаем папку", () -> {

@@ -3,7 +3,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import org.example.Models.TestData;
+import org.example.Models.TestData.TestData;
 import org.example.Models.TrashResource;
 import org.example.Utils.TestDataReader;
 import org.example.Utils.TextGeneratorUtil;
@@ -23,7 +23,7 @@ public class DiskTrashApiTest extends BaseTest{
     @Description("Перемещение файла в корзину и восстановление его из корзины")
     public void moveFileToTrashAndRestoreTest() {
         TestData testData = TestDataReader.getTestData();
-        String filePath = testData.getNewFileTxt();
+        String filePath = testData.getTrashApi().getRestoreFilePath();
 
         step("Создаем текстовый файл", () -> {
             String expectedText = TextGeneratorUtil.generateText(100);
@@ -42,7 +42,7 @@ public class DiskTrashApiTest extends BaseTest{
         });
 
         TrashResource trash = step("Получаем содержимое корзины", () ->
-                yandexDiskApiClient.getTrashFiles(testData.getDefaultPath())
+                yandexDiskApiClient.getTrashFiles(testData.getTrashApi().getTrashRootPath())
         );
 
         Optional<TrashResource> fileInTrash = step("Ищем файл new_file.txt в корзине", () ->
@@ -71,7 +71,7 @@ public class DiskTrashApiTest extends BaseTest{
     @Description("Перемещение файла в корзину и полное удаление его из корзины")
     public void testMoveFileToTrashAndFullDelete() {
         TestData testData = TestDataReader.getTestData();
-        String filePath = testData.getApiCopyFile();
+        String filePath = testData.getTrashApi().getDeleteForeverFilePath();
 
         step("Создаем текстовый файл", () -> {
             String expectedText = TextGeneratorUtil.generateText(100);
@@ -90,7 +90,7 @@ public class DiskTrashApiTest extends BaseTest{
         });
 
         TrashResource trash = step("Получаем содержимое корзины", () ->
-                yandexDiskApiClient.getTrashFiles(testData.getDefaultPath())
+                yandexDiskApiClient.getTrashFiles(testData.getTrashApi().getTrashRootPath())
         );
 
         Optional<TrashResource> fileInTrash = step("Ищем файл new_file.txt в корзине", () ->
@@ -111,7 +111,7 @@ public class DiskTrashApiTest extends BaseTest{
         });
 
         step("Проверяем, что файл больше не находится в корзине", () -> {
-            TrashResource trashAfterDelete = yandexDiskApiClient.getTrashFiles(testData.getDefaultPath());
+            TrashResource trashAfterDelete = yandexDiskApiClient.getTrashFiles(testData.getTrashApi().getTrashRootPath());
 
             boolean fileStillExistsInTrash = trashAfterDelete.getEmbedded().getItems().stream()
                     .anyMatch(resource -> resource.getPath().equals(fileInTrashPath));

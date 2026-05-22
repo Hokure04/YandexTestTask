@@ -183,4 +183,17 @@ public class YandexDiskApiClient extends BaseApi{
                 .pathParam("operation_id", operationId)
                 .get("/v1/disk/operations/{operation_id}");
     }
+
+    public Response getFilesOrderedByName() {
+        return request()
+                .header("Authorization", authHeader())
+                .queryParam("sort", "name")
+                .get("/v1/disk/resources/files");
+    }
+
+    public Response getLastUploadedFiles() {
+        return request()
+                .header("Authorization", authHeader())
+                .get("/v1/disk/resources/last-uploaded");
+    }
 }

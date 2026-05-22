@@ -3,7 +3,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import org.example.Models.TestData;
+import org.example.Models.TestData.TestData;
 import org.example.Utils.RandomUtil;
 import org.example.Utils.TestDataReader;
 import org.example.Utils.TextGeneratorUtil;
@@ -26,9 +26,9 @@ public class DiskFileApiTest extends BaseTest {
         TestData testData = TestDataReader.getTestData();
         int min = 1000;
         int max = 10000;
-        String folderPath = String.format(testData.getApiTestFolder(), RandomUtil.getRandomNumberAsString(min, max));
-        String filePath = folderPath + "/" + testData.getApiTestFileName();
-        String renamedFilePath = folderPath + "/" + testData.getApiTestRenamedFileName();
+        String folderPath = String.format(testData.getFileApi().getTestFolder(), RandomUtil.getRandomNumberAsString(min, max));
+        String filePath = folderPath + "/" + testData.getFileApi().getFileName();
+        String renamedFilePath = folderPath + "/" + testData.getFileApi().getRenamedFileName();
 
 
         step("Создаем папку", () -> {
@@ -37,11 +37,12 @@ public class DiskFileApiTest extends BaseTest {
         });
 
 
+        String expectedFolderName = folderPath.substring(folderPath.lastIndexOf("/") + 1);
         step("Проверяем, что папка создана", () -> {
             Response getFolderResponse = yandexDiskApiClient.getResource(folderPath);
             assertEquals(200, getFolderResponse.statusCode(), "Созданная папка не найдена");
             assertEquals("dir", getFolderResponse.jsonPath().getString("type"), "Ресурс не является папкой");
-            assertEquals(folderPath, getFolderResponse.jsonPath().getString("name"), "Название папки не совпадает с ожидаемым");
+            assertEquals(expectedFolderName, getFolderResponse.jsonPath().getString("name"), "Название папки не совпадает с ожидаемым");
         });
 
 
@@ -55,7 +56,7 @@ public class DiskFileApiTest extends BaseTest {
             Response getFileResponse = yandexDiskApiClient.getResource(filePath);
             assertEquals(200, getFileResponse.statusCode(), "Файл не найден");
             assertEquals("file", getFileResponse.jsonPath().getString("type"), "Ресурс не является файлом");
-            assertEquals(testData.getApiTestFileName(), getFileResponse.jsonPath().getString("name"), "Имя файла не совпадает с ожидаемым");
+            assertEquals(testData.getFileApi().getFileName(), getFileResponse.jsonPath().getString("name"), "Имя файла не совпадает с ожидаемым");
         });
 
 
@@ -68,7 +69,7 @@ public class DiskFileApiTest extends BaseTest {
         step("Проверяем файл по новому имени", () -> {
             Response getRenamedFileResponse = yandexDiskApiClient.getResource(renamedFilePath);
             assertEquals(200, getRenamedFileResponse.statusCode(), "Переименованный файл не найден");
-            assertEquals(testData.getApiTestRenamedFileName(), getRenamedFileResponse.jsonPath().getString("name"), "Имя файла не сопадает с ожидаемым");
+            assertEquals(testData.getFileApi().getRenamedFileName(), getRenamedFileResponse.jsonPath().getString("name"), "Имя файла не сопадает с ожидаемым");
         });
 
 
@@ -92,7 +93,7 @@ public class DiskFileApiTest extends BaseTest {
 
         int min = 1000;
         int max = 10000;
-        String filePath = String.format(testData.getApiTestFileName(),RandomUtil.getRandomNumberAsString(min, max));
+        String filePath = String.format(testData.getFileApi().getDiskSpaceFileTemplate(), RandomUtil.getRandomNumberAsString(min, max));
 
         Response diskInfoBeforeResponse = step("Получаем информацию о месте на Диске", () ->
              yandexDiskApiClient.getDiskInfo()
@@ -168,8 +169,8 @@ public class DiskFileApiTest extends BaseTest {
     public void testFileCopy() {
         TestData testData = TestDataReader.getTestData();
 
-        String sourceFilePath = testData.getApiCopyFile();
-        String copiedFilePath = testData.getNewFileTxt();
+        String sourceFilePath = testData.getFileApi().getCopySourceFile();
+        String copiedFilePath = testData.getFileApi().getCopyTargetFile();
         String expectedText = TextGeneratorUtil.generateText(100);
 
         step("Создаем текстовый файл с рандомным текстом", () -> {

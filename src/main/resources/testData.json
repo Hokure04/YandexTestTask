@@ -1,13 +1,26 @@
 {
-  "apiTestFolder": "api_test_%s",
-  "apiTestFile": "test_file.txt",
-  "apiRenamedFile": "renamed_test_file.txt",
-  "newFileTxt": "disk:/new_file.txt",
-  "newFileJpg": "new_file.jpg",
-  "defaultFilename": "new_file",
-  "extension": ".jpg",
-  "defaultPath": "trash:/",
-  "apiCopyFile": "disk:/copy_test_file.txt",
-  "apiImageFile": "disk:/test_image.jpeg",
-  "localImageFile": "images/test_image.jpeg"
+  "fileApi": {
+    "testFolder": "disk:/api_test_%s",
+    "fileName": "test_file.txt",
+    "renamedFileName": "renamed_test_file.txt",
+    "copySourceFile": "disk:/copy_test_file.txt",
+    "copyTargetFile": "disk:/new_file.txt",
+    "diskSpaceFileTemplate": "disk:/space_test_file_%s.txt"
+  },
+  "imageApi": {
+    "diskImagePath": "disk:/test_image.jpeg",
+    "localImagePath": "images/test_image.jpeg",
+    "textFilePath": "disk:/new_file.txt",
+    "defaultFilename": "new_file",
+    "newExtension": ".jpg"
+  },
+  "trashApi": {
+    "restoreFilePath": "disk:/new_file.txt",
+    "deleteForeverFilePath": "disk:/copy_test_file.txt",
+    "trashRootPath": "trash:/"
+  },
+  "fileListApi": {
+    "sortedFilePath": "disk:/aaa.txt",
+    "lastUploadedFilePath": "disk:/last_uploaded_file.txt"
+  }
 }

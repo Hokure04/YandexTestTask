@@ -1,6 +1,6 @@
 package org.example.Utils;
 
-import org.example.Models.TestData;
+import org.example.Models.TestData.TestData;
 
 public class TestDataReader {
 

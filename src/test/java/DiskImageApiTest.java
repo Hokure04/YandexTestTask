@@ -3,7 +3,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import org.example.Models.TestData;
+import org.example.Models.TestData.TestData;
 import org.example.Utils.CompareImagesUtil;
 import org.example.Utils.PathManager;
 import org.example.Utils.TestDataReader;
@@ -27,8 +27,8 @@ public class DiskImageApiTest extends BaseTest {
     public void uploadImageTest() throws IOException {
         TestData testData = TestDataReader.getTestData();
 
-        String imageDiskPath = testData.getApiImageFile();
-        byte[] expectedImageBytes = Files.readAllBytes(PathManager.getPath(testData.getLocalImageFile()));
+        String imageDiskPath = testData.getImageApi().getDiskImagePath();
+        byte[] expectedImageBytes = Files.readAllBytes(PathManager.getPath(testData.getImageApi().getLocalImagePath()));
 
         step("Загружаем какртинку на Диск", () -> {
             Response uploadImageResponse = yandexDiskApiClient.uploadImageFile(imageDiskPath, expectedImageBytes);
@@ -60,9 +60,9 @@ public class DiskImageApiTest extends BaseTest {
     public void changeFileExtensionTest(){
         TestData testData = TestDataReader.getTestData();
 
-        String filePath = testData.getNewFileTxt();
-        String changedFilePath = filePath.substring(0, filePath.lastIndexOf(".")) + testData.getExtension();
-        String expectedFileName = testData.getDefaultFilename()+testData.getExtension();
+        String filePath = testData.getImageApi().getTextFilePath();
+        String changedFilePath = filePath.substring(0, filePath.lastIndexOf(".")) + testData.getImageApi().getNewExtension();
+        String expectedFileName = testData.getImageApi().getDefaultFilename()+testData.getImageApi().getNewExtension();
 
         step("Загружаем текстовый файл на Диск", () -> {
             String expectedText = TextGeneratorUtil.generateText(100);
@@ -77,7 +77,7 @@ public class DiskImageApiTest extends BaseTest {
         });
 
         step("Меняем расширение файла на jpg", () -> {
-            Response changeExtensionResponse = yandexDiskApiClient.changeExtensions(filePath, testData.getExtension());
+            Response changeExtensionResponse = yandexDiskApiClient.changeExtensions(filePath, testData.getImageApi().getNewExtension());
             assertEquals(201, changeExtensionResponse.statusCode(), "Не удалось изменить расширение файла");
         });
 
