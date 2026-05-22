@@ -119,5 +119,4 @@ public class DiskTrashApiTest extends BaseTest{
             assertFalse(fileStillExistsInTrash, "Файл всё ещё находится в корзине");
         });
     }
-
 }
