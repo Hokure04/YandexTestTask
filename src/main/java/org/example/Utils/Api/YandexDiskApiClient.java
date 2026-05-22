@@ -1,12 +1,14 @@
-package org.example.Utils;
+package org.example.Utils.Api;
 
 import io.restassured.response.Response;
 import org.example.Models.LinkResource;
 import org.example.Models.TrashResource;
+import org.example.Utils.Readers.CredentialsReader;
+import org.example.Utils.Readers.SettingsReader;
 
 import static io.restassured.RestAssured.given;
 
-public class YandexDiskApiClient extends BaseApi{
+public class YandexDiskApiClient extends BaseApi {
 
     public static final String TEXT_PLAIN = "text/plain";
     public static final String IMAGE_JPEG = "image/jpeg";

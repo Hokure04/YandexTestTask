@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 import org.example.Models.TestData.TestData;
 import org.example.Utils.CompareImagesUtil;
 import org.example.Utils.PathManager;
-import org.example.Utils.TestDataReader;
+import org.example.Utils.Readers.TestDataReader;
 import org.example.Utils.TextGeneratorUtil;
 import org.junit.jupiter.api.Test;
 

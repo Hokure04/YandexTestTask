@@ -1,7 +1,7 @@
 package org.example.Utils;
 
 import io.restassured.response.Response;
-import org.example.Models.Settings;
+import org.example.Utils.Readers.SettingsReader;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;

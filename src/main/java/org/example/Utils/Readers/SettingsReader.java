@@ -1,6 +1,8 @@
-package org.example.Utils;
+package org.example.Utils.Readers;
 
 import org.example.Models.Settings;
+import org.example.Utils.Parser;
+import org.example.Utils.PathManager;
 
 public class SettingsReader {
 
