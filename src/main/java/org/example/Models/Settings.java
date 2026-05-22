@@ -10,9 +10,6 @@ public class Settings {
     @JsonProperty("apiUrl")
     private String apiUrl;
 
-    @JsonProperty("browser")
-    private String browser;
-
     @JsonProperty("timeout")
     private Long timeout;
 
@@ -30,14 +27,6 @@ public class Settings {
 
     public void setApiUrl(String apiUrl) {
         this.apiUrl = apiUrl;
-    }
-
-    public String getBrowser() {
-        return browser;
-    }
-
-    public void setBrowser(String browser) {
-        this.browser = browser;
     }
 
     public Long getTimeout() {

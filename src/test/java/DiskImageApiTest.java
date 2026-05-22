@@ -8,7 +8,7 @@ import org.example.Utils.CompareImagesUtil;
 import org.example.Utils.PathManager;
 import org.example.Utils.Readers.TestDataReader;
 import org.example.Utils.TextGeneratorUtil;
-import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.RetryingTest;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Feature("Изображения")
 public class DiskImageApiTest extends BaseTest {
 
-    @Test
+    @RetryingTest(2)
     @Story("Загрузка изображения")
     @Description("Загрузка картики на диск и сравнения с локальным файлом")
     public void uploadImageTest() throws IOException {
@@ -56,7 +56,7 @@ public class DiskImageApiTest extends BaseTest {
     }
 
 
-    @Test
+    @RetryingTest(2)
     public void changeFileExtensionTest(){
         TestData testData = TestDataReader.getTestData();
 

@@ -12,13 +12,6 @@ public class WaitUtil {
     private static final Duration TIMEOUT = Duration.ofSeconds(SettingsReader.getSettings().getTimeout());
     private static final Duration POLLING = Duration.ofSeconds(1);
 
-    public static boolean waitForRename(Supplier<String> getNameFunc, String newExtension) {
-        return waitUntil(() -> {
-            String name = getNameFunc.get();
-            return name != null && name.endsWith(newExtension);
-        });
-    }
-
     public static boolean waitForUsedSpaceChange(
             Supplier<Response> diskInfoSupplier,
             long usedSpaceBefore,

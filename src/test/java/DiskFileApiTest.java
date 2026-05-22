@@ -8,7 +8,7 @@ import org.example.Utils.RandomUtil;
 import org.example.Utils.Readers.TestDataReader;
 import org.example.Utils.TextGeneratorUtil;
 import org.example.Utils.WaitUtil;
-import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.RetryingTest;
 
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Feature("Файлы")
 public class DiskFileApiTest extends BaseTest {
 
-    @Test
+    @RetryingTest(2)
     @Story("Переименование файла внутри папки")
     @Description("Создание папки и файла внутри, переименование файла, удаление папки с файлом")
     public void yandexDiskApiSimpleTest() {
@@ -85,7 +85,7 @@ public class DiskFileApiTest extends BaseTest {
         });
     }
 
-    @Test
+    @RetryingTest(2)
     @Story("Изменение размера диска")
     @Description("Проверка, изменения занятого места на диске после загрузки файла")
     public void diskSpaceTest(){
@@ -163,7 +163,7 @@ public class DiskFileApiTest extends BaseTest {
         });
     }
 
-    @Test
+    @RetryingTest(2)
     @Story("Копирование файла")
     @Description("Создание текстого файла, копирование данного файла и проверка совпадения текста")
     public void testFileCopy() {

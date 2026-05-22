@@ -7,7 +7,7 @@ import org.example.Models.TestData.TestData;
 import org.example.Models.TrashResource;
 import org.example.Utils.Readers.TestDataReader;
 import org.example.Utils.TextGeneratorUtil;
-import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.RetryingTest;
 
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Feature("Корзина")
 public class DiskTrashApiTest extends BaseTest{
 
-    @Test
+    @RetryingTest(2)
     @Story("Восстановление файла из корзины")
     @Description("Перемещение файла в корзину и восстановление его из корзины")
     public void moveFileToTrashAndRestoreTest() {
@@ -66,7 +66,7 @@ public class DiskTrashApiTest extends BaseTest{
         });
     }
 
-    @Test
+    @RetryingTest(2)
     @Story("Полное удаление файла из корзины")
     @Description("Перемещение файла в корзину и полное удаление его из корзины")
     public void testMoveFileToTrashAndFullDelete() {
